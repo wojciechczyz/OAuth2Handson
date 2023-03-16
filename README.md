@@ -21,23 +21,33 @@ You can find your hosts file in:
 Install required tools:
 
 git
+
 Windows:
 https://gitforwindows.org/
+
 Mac:
 https://sourceforge.net/projects/git-osx-installer/files/git-2.23.0-intel-universal-mavericks.dmg/download?use_mirror=autoselect
+
+```
 Brew install git
+```
 
 Docker for desktop
+
 Windows and Mac:
 https://www.docker.com/products/docker-desktop/
+
 Mac:
+```
 Brew install docker
+```
 
 
 Preload all needed images:
 
 Login to Intersystems docker repository
-containers.intersystems.com
+https://containers.intersystems.com
+
 Obtain your docker login command from the  portal
 
 Login using above command and pull required images:
