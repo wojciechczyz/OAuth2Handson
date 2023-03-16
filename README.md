@@ -174,7 +174,7 @@ do ##class(%OAuth2.Utils).DisplayLog("/tmp/isclog.log")
 
 ## Hands on - OAuth2 configuration
  
- 
+
  
  Have a look at the code of [client.Application](oauth-client/src/client/Application.cls)
 
