@@ -60,6 +60,12 @@ docker pull containers.intersystems.com/intersystems/iris-community:2022.1.2.574
 docker pull containers.intersystems.com/intersystems/webgateway:2022.1.2.574.0
 ```
 
+Load code (and this readme file) on your machine:
+```
+git clone https://github.com/wojciechczyz/OAuth2Handson.git
+cd .\OAuth2Handson\
+```
+
 Let's create and start servers
 Build images:
 ```
