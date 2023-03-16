@@ -3,12 +3,11 @@ Using OAuth2 framework in InterSystems IRIS. Learn how to act as Client, Authent
 Quick setup of all three servers,
 Troubleshooting
 
-# Setup
-# Hands on - let's prepare servers on docker
+# 6. Hands on - let's prepare servers on docker
 
 Install required tools:
 
-git
+Git
 
 Windows:
 https://gitforwindows.org/
@@ -42,14 +41,16 @@ Obtain your docker login command from the  portal
 Login using above command and pull required images:
 
 ```
-docker login -u="wczyz" -p="738v6fsXXXXXXXXvZwpgcwCdNaxNtKQ4hBYb"  containers.intersystems.com
+docker login -u="wczyz" -p="INSERT-YOUR-TOKEN-HERE"  containers.intersystems.com
 
 docker pull containers.intersystems.com/intersystems/iris-community:2022.1.2.574.0
 
-docker pull containers.intersystems.com/intersystems/webgateway:2022.1.2.574.0
+docker pull containers.intersystems.com/intersystems/webgateway:2022.2.0.372.0
 ```
 
 All tools are loaded now, lets start setting up
+
+# 7. Hands on - Setting setting up OAuth2 servers
 
 Modify your local hosts file 
 
@@ -84,7 +85,7 @@ Run containers:
 docker-compose up -d
 ```
 
-# Hands on - Registering OAuth2 servers on docker 
+# 8. Hands on - Registering OAuth2 Client and Resource server
 
 Prepare authorization server - already done!
 
@@ -119,16 +120,7 @@ zn "resserver"
 write ##class(res.Installer).SetupOauth2Client()
 ```
 
-# Hands on - Oauth2 authorization test
-
-
-
-https://webserver/client/application/
-
-Superuser	SYS
-developer	test
-
-# Overview
+# 9.Hands on - Review configuration
 
 After running containers, you should get access to:
 | Container  | Mng. Portal URL                                    | Notes                                                |
@@ -140,37 +132,52 @@ After running containers, you should get access to:
 
 You can login in InterSystems IRIS instances using `superuser`/`SYS`.
 
+Resource server
+* [ResServer](https://webserver/resserver/csp/sys/UtilHome.csp) is serving protected resource URL:
+
+```
+* https://webserver/resserver/protected-resources/
+```
+
+* Resource server can be accessed only through the client application (otherwise it will return an error). 
+
+[AuthServer](https://webserver/authserver/csp/sys/UtilHome.csp) has 
 
 
-# Hands on troubleshooting
+# 10.Hands on - Test OAuth2 workflow with Web Client Application
+
+In the [Client](https://webserver/client/csp/sys/UtilHome.csp) instance you have already a simple web app created that
+will attempt to connect to the resource server attempting to get authorization with  `%OAuth2` classes.
+
+https://webserver/client/application/
+
+Superuser	SYS
+developer	test
+
+Notice that these users are actually defined in [AuthServer](https://webserver/authserver/csp/sys/UtilHome.csp) instance.
+
+11.Hands on - Test OAuth2 workflow with Web Client Application - result
+
+# 12.Hands on troubleshooting
 
 kill ^ISCLOG // clear the global
 set ^%ISCLOG("Category","OAuth2Server")=1
 set ^%ISCLOG("Category","OAuth2")=1
 set ^%ISCLOG=3
 
-Perform test
+***Perform test***
 
 set ^%ISCLOG=0 //disable logging
 do $system.OBJ.Export("ISCLOG.GBL","c:\temp\isclog.xml")
 do ##class(%OAuth2.Utils).DisplayLog("/tmp/isclog.log")
 
 
+## Hands on - OAuth2 configuration
+ 
+ 
+ 
+ Have a look at the code of [client.Application](oauth-client/src/client/Application.cls)
 
-docker exec -it resserver iris terminal IRIS
-
-set ^%ISCLOG("Category","OAuth2Server")=1
-set ^%ISCLOG("Category","OAuth2")=1
-set ^%ISCLOG=3
-
-## (a.4) Test
-
-### Client Application
-* In the [Client](https://webserver/client/csp/sys/UtilHome.csp) instance you have already a simple web app created that uses the `%OAuth2` classes.
-* Have a look at the code of [client.Application](oauth-client/src/client/Application.cls)
-* Test the application using https://webserver/client/application/
-  * Try accessing with `superuser`/`SYS` or `developer`/`test`. 
-  * Notice that these users are actually defined in [AuthServer](https://webserver/authserver/csp/sys/UtilHome.csp) instance.
 
 ### Resource Server
 * In the [ResServer](https://webserver/resserver/csp/sys/UtilHome.csp) instance, you also have the resource server prepared.
@@ -181,32 +188,3 @@ set ^%ISCLOG=3
 You should get something like that:
 <img src="img/oauth-client-webapp.gif" width="800px" />
 
-# (b) Client Credentials Example
-
-<img src="img/client-credentials.png" width="500px" />
-
-Now, we are going to access the protected resources through Postman using the client credentials grant type.
-
-## (b.1) AuthServer
-
-### Enable Client Credentials
-* In [AuthServer](https://webserver/authserver/csp/sys/UtilHome.csp), go to *System Administration > Security > OAuth 2.0 > Server*
-* Enable `Client credentials` as a supported grant type.
-* After that auth server will be able to use both authorization code and client credentials grant types.
-
-### Create a client definition
-* Again in [AuthServer](https://webserver/authserver/csp/sys/UtilHome.csp), go to *System Administration > Security > OAuth 2.0 > Server > Client Descriptions*
-* Create a client description for our Postman client
-
-<img src="img/postman-client-description.png" width="500px" />
-
-* In the **Client Credentials** tab, copy `Client ID` and `Client Secret` values. You will these values in Postman.
-
-## (b.2) Test 
-
-### Postman client
-* Import [IRISOAuth2.postman_collection.json](./IRISOAuth2.postman_collection.json) in Postman.
-* In the *Authorization* tab of the request, copy the values of `Client ID` and `Client Secret`.
-* After that, get a new token and then access the protected resources:
-
-<img src="img/oauth-client-postman.gif" width="800px" />

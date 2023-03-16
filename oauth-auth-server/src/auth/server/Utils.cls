@@ -7,6 +7,14 @@ ClassMethod CreateServerConfig() As %Status
     set ns = $namespace
     set $namespace = "%SYS"
 
+    write "Turn on OAuth2 logging",!
+    set ^%ISCLOG("Category","OAuth2Server")=1
+    set ^%ISCLOG("Category","OAuth2")=1
+    set ^%ISCLOG=3
+    write "OAuth2 logging turned on",!
+
+    write "Creating OAuth2 authorizing server configuration"
+
     set server = ##class(OAuth2.Server.Configuration).%New()
     set server.Description = "OAuth2 Auth Server"
 
@@ -17,7 +25,7 @@ ClassMethod CreateServerConfig() As %Status
     set server.IssuerEndpoint = endpoint
     
     // supported grant types: Authorization Code
-    set server.SupportedGrantTypes = "A"
+    set server.SupportedGrantTypes = "AC"
 
     // use JWT tokens
     set server.GenerateTokenClass = "%OAuth2.Server.JWT"
@@ -36,11 +44,8 @@ ClassMethod CreateServerConfig() As %Status
 
     write server.Save()
 
-    write "Turn on OAuth2 logging"
-    set ^%ISCLOG("Category","OAuth2Server")=1
-    set ^%ISCLOG("Category","OAuth2")=1
-    set ^%ISCLOG=3
-    write "OAuth2 logging turned on"
+    write "Finished creating OAuth2 authorizing server configuration"
+
     set $namespace = ns
 }
 
