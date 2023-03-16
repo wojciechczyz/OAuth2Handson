@@ -5,7 +5,7 @@ Troubleshooting
 
 # Setup
 ## Modify your local hosts file 
-Add a line to resolve `webserver` to 127.0.0.1
+Add new configuration line to your hosts file to resolve webserver to 127.0.0.1:
 ```
 127.0.0.1 webserver
 ```
@@ -15,16 +15,6 @@ You can find your hosts file in:
 | --------- | ----------- |
 | MacOS | `/private/etc/hosts` |
 | Windows | `c:\Windows\System32\Drivers\etc\hosts` |
-
-## Certificate
-* There is already a self-signed certificate generated in webserver/ssl-cert.pem, webserver/ssl-cert.key.
-* You can use this certificate for test purposes.
-* You will need to allow this certificate when navigating using a Web Browser (Safari, Chrome, etc.)
-
-The certificate has been generated using:
-```
-openssl req -x509 -newkey rsa:4096 -keyout ssl-cert.key -out ssl-cert.pem -nodes -sha256 -days 999 -subj "/CN=webserver"
-```
 
 # Hands on - let's prepare servers on docker
 
@@ -51,11 +41,14 @@ containers.intersystems.com
 Obtain your docker login command from the  portal
 
 Login using above command and pull required images:
+
+```
 docker login -u="wczyz" -p="738v6fsXXXXXXXXvZwpgcwCdNaxNtKQ4hBYb"  containers.intersystems.com
 
-Docker pull containers.intersystems.com/intersystems/iris-community:2022.1.2.574.0
-docker pull containers.intersystems.com/intersystems/webgateway:2022.1.2.574.0
+docker pull containers.intersystems.com/intersystems/iris-community:2022.1.2.574.0
 
+docker pull containers.intersystems.com/intersystems/webgateway:2022.1.2.574.0
+```
 
 Let's create and start servers
 Build images:
@@ -72,7 +65,10 @@ docker-compose up -d
 
 Prepare authorization server - already done!
 
+```
 docker exec -it authserver iris terminal IRIS
+```
+
 Node: authserver, Instance: IRIS
 USER>zn "AUTHSERVER"
 AUTHSERVER>do ##class(auth.server.Utils).CreateServerConfig()
@@ -80,18 +76,25 @@ AUTHSERVER>do ##class(auth.server.Utils).CreateServerConfig()
 
 Prepare client server
 
+```
 docker exec -it client iris terminal IRIS
+```
 Node: client, Instance: IRIS
+```
 zn "client"
 write ##class(client.Installer).SetupOauth2Client()
+```
 
 Prepare resource server
 
+```
 docker exec -it resourceserver iris terminal IRIS
+```
 Node: resserver, Instance: IRIS
+```
 zn "resserver"
 write ##class(res.Installer).SetupOauth2Client()
-
+```
 
 # Hands on - Oauth2 authorization test
 
