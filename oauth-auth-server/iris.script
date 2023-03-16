@@ -1,0 +1,27 @@
+    // unexpire passwords for dev mode
+    zn "%SYS"
+    do ##class(Security.Users).UnExpireUserPasswords("*")
+    
+    do $SYSTEM.OBJ.Load("/opt/irisapp/src/auth/Installer.cls", "ck") 
+
+    // setup environment
+    do ##class(auth.Installer).SetupEnvironment(.vars)
+
+    // setup AUTHSERVER namespace
+    do ##class(auth.Installer).SetupAUTHSERVER()
+
+    // webgateway: access using server name
+    do $System.CSP.SetConfig("CSPConfigName","authserver")
+
+    write "Turn on OAuth2 logging",!
+    set ^%ISCLOG("Category","OAuth2Server")=1
+    set ^%ISCLOG("Category","OAuth2")=1
+    set ^%ISCLOG=3
+    write "OAuth2 logging turned on",!
+
+    write "Prepare OAuth2 setup of authorization server",!
+    zn "AUTHSERVER"
+    do ##class(auth.server.Utils).CreateServerConfig()
+    write "OAuth2 setup of authorization server performed",!
+
+    halt
