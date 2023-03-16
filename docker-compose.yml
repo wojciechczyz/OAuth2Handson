@@ -10,7 +10,7 @@ services:
     build:
       context: oauth-client
 #      network: host
-    image: workshop-iris-oauth:client
+    image: oauth2handson:client
     command: --check-caps false
     container_name: client
     ports:
@@ -27,7 +27,7 @@ services:
     build:
       context: oauth-resource-server
 #      network: host
-    image: workshop-iris-oauth:resserver
+    image: oauth2handson:resserver
     command: --check-caps false
     container_name: resourceserver
     ports:
@@ -46,7 +46,7 @@ services:
       context: oauth-auth-server
       dockerfile: Dockerfile
 #      network: host
-    image: workshop-iris-oauth:authserver
+    image: oauth2handson:authserver
     command: --check-caps false
     container_name: authserver
     ports:
@@ -61,7 +61,7 @@ services:
       context: webserver
       dockerfile: Dockerfile
 #     network: host
-    image: workshop-iris-oauth:webserver
+    image: oauth2handson:webserver
     container_name: webserver
     init: true
     ports:

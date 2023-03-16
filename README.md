@@ -4,18 +4,6 @@ Quick setup of all three servers,
 Troubleshooting
 
 # Setup
-## Modify your local hosts file 
-Add new configuration line to your hosts file to resolve webserver to 127.0.0.1:
-```
-127.0.0.1 webserver
-```
-
-You can find your hosts file in:
-| O.S. | File |
-| --------- | ----------- |
-| MacOS | `/private/etc/hosts` |
-| Windows | `c:\Windows\System32\Drivers\etc\hosts` |
-
 # Hands on - let's prepare servers on docker
 
 Install required tools:
@@ -43,6 +31,7 @@ Brew install docker
 ```
 
 
+
 Preload all needed images:
 
 Login to Intersystems docker repository
@@ -59,6 +48,24 @@ docker pull containers.intersystems.com/intersystems/iris-community:2022.1.2.574
 
 docker pull containers.intersystems.com/intersystems/webgateway:2022.1.2.574.0
 ```
+
+All tools are loaded now, lets start setting up
+
+Modify your local hosts file 
+
+Add new configuration line to your hosts file to resolve webserver to 127.0.0.1:
+```
+127.0.0.1 webserver
+```
+
+
+You can find your hosts file in:
+| O.S. | File |
+| --------- | ----------- |
+| MacOS | `/private/etc/hosts` |
+| Windows | `c:\Windows\System32\Drivers\etc\hosts` |
+
+
 
 Load code (and this readme file) on your machine:
 ```
