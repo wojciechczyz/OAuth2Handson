@@ -58,7 +58,7 @@ ClassMethod SetupCLIENT() As %Status
         write "Going to load all classes in /opt/irisapp/src/"
         $$$ThrowOnError($SYSTEM.OBJ.LoadDir("/opt/irisapp/src/", "ck", .errorlog, 1))
         //write "Attempt SetupOauth2Client()"
-        //$$$ThrowOnError(  ..SetupOauth2Client() )
+        //$$$ThrowOnError(  ..RegisterOauth2Client() )
         //write "Finished SetupOauth2Client()"
 
     } catch ex {
@@ -70,7 +70,7 @@ ClassMethod SetupCLIENT() As %Status
     quit ret
 }
 
-ClassMethod SetupOauth2Client() As %Status
+ClassMethod RegisterOauth2Client() As %Status
 {
     set ns = $namespace
     set ret = $$$OK

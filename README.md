@@ -67,7 +67,14 @@ All tools are loaded now, lets start setting up
 
 # 7. Hands on - Setting setting up OAuth2 servers
 
-Modify your local hosts file 
+Load code (and this readme file) on your machine:
+
+```
+git clone https://github.com/wojciechczyz/OAuth2Handson.git
+cd OAuth2Handson
+```
+Also open the above link in browser 
+
 
 Add new configuration line to your hosts file to resolve webserver to 127.0.0.1:
 ```
@@ -75,21 +82,22 @@ Add new configuration line to your hosts file to resolve webserver to 127.0.0.1:
 ```
 
 
-You can find your hosts file in:
-| O.S. | File |
-| --------- | ----------- |
-| MacOS | `/private/etc/hosts` |
-| Windows | `c:\Windows\System32\Drivers\etc\hosts` |
-
-
-
-Load code (and this readme file) on your machine:
+Windows
 ```
-git clone https://github.com/wojciechczyz/OAuth2Handson.git
-cd OAuth2Handson
+code c:\Windows\System32\Drivers\etc\hosts
 ```
 
-Let's create and start servers
+Mac
+
+```
+code /private/etc/hosts
+```
+or
+```
+sudo nano /private/etc/hosts
+```
+
+Let's create new images and start servers
 Build images:
 ```
 docker-compose build
@@ -102,7 +110,7 @@ docker-compose up -d
 
 # 8. Hands on - Registering OAuth2 Client and Resource server
 
-a.Prepare authorization server - already done!
+a.Setting up authorization server - already done!
 
 ```
 docker exec -it authserver iris terminal IRIS
@@ -114,26 +122,20 @@ zn "AUTHSERVER"
 AUTHSERVER>do ##class(auth.server.Utils).CreateServerConfig()
 ```
 
-b.Prepare client server
+b.Registering client server
 
 ```
 docker exec -it client iris terminal IRIS
-```
-Node: client, Instance: IRIS
-```
 zn "client"
-write ##class(client.Installer).SetupOauth2Client()
+write ##class(client.Installer).RegisterOauth2Client()
 ```
 
-c.Prepare resource server
+c.Registering resource server
 
 ```
 docker exec -it resourceserver iris terminal IRIS
-```
-Node: resserver, Instance: IRIS
-```
 zn "resserver"
-write ##class(res.Installer).SetupOauth2Client()
+write ##class(res.Installer).RegisterOauth2ResourceServer()
 ```
 
 # 9.Hands on - Review configuration
@@ -172,7 +174,11 @@ Notice that these users are actually defined in [AuthServer](https://webserver/a
 
 11.Hands on - Test OAuth2 workflow with Web Client Application - result
 
-# 12.Hands on troubleshooting
+# 12.what are we troubleshooting
+
+
+
+# 13.Hands on troubleshooting using ISCSOAP
 
 ```
 kill ^ISCLOG // clear the global
@@ -185,20 +191,52 @@ set ^%ISCLOG=3
 
 ```
 set ^%ISCLOG=0 //disable logging
+
 do $system.OBJ.Export("ISCLOG.GBL","c:\temp\isclog.xml")
+
+zn "%SYS"
 do ##class(%OAuth2.Utils).DisplayLog("/tmp/isclog.log")
 ```
 
-## Hands on - OAuth2 configuration
- 
+See both ^%ISCLOG and ^ISCLOG via management portal on all instances:
 
- Have a look at the code of [client.Application](oauth-client/src/client/Application.cls)
+| authserver | https://webserver/authserver/csp/sys/UtilHome.csp  | IRIS instance that will act as Authorization Server  |
+| resserver  | https://webserver/resserver/csp/sys/UtilHome.csp   | IRIS instance that will act as Resource Server       |
+| client     | https://webserver/client/csp/sys/UtilHome.csp      | IRIS instance that will act as Client 
+
+Search for client_id
+
+# 14.Hands on - Troubleshooting using Gateway traces
+
+# 15.Hands on - Troubleshooting using Developer tools in browser
+
+Google Chrome
+
+Edge
+
+Firefox
+
+Safari
+
+# 16. HealthShare 
 
 
-### Resource Server
-* In the [ResServer](https://webserver/resserver/csp/sys/UtilHome.csp) instance, you also have the resource server prepared.
-* Check [res.Server](oauth-resource-server/src/res/Server.cls) source code.
-* Resource server can be accessed only through the client application (otherwise it will return an error). 
-* The protected resource URL is: https://webserver/resserver/protected-resources/
+Deployed mode
+%ZHS.ZAUTHENTICATE.cls
+%ZHS.ZAUTHENTICATE.inc
+
+
+kill ^CacheTemp.HSAuthEnabled
+Set  ^CacheTemp.HSAuthEnabled
+Debugging enabled
+
+
+In BEARER token flow
+ValidateJWT return
+
+# 16.Hands on - Review server build using Visual Studio Code
+
+
+
 
 

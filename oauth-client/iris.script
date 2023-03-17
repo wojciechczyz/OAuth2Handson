@@ -14,7 +14,7 @@
     do $System.CSP.SetConfig("CSPConfigName","client")
 
     //write "Attempt SetupOauth2Client()"
-    //do ##class(client.Installer).SetupOauth2Client()
+    //do ##class(client.Installer).RegisterOauth2Client()
     //write "Finished SetupOauth2Client()"
 
     halt
