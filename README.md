@@ -7,7 +7,7 @@ Troubleshooting
 
 Install required tools:
 
-Git
+a.Git
 
 Windows:
 https://gitforwindows.org/
@@ -19,7 +19,7 @@ https://sourceforge.net/projects/git-osx-installer/files/git-2.23.0-intel-univer
 Brew install git
 ```
 
-Docker for desktop
+b.Docker for desktop
 
 Windows and Mac:
 https://www.docker.com/products/docker-desktop/
@@ -29,9 +29,15 @@ Mac:
 Brew install docker
 ```
 
+c.Visual Studio Code
+Windows and Mac:
+https://code.visualstudio.com/download
+
+Mac:
+brew install visual-studio-code
 
 
-Preload all needed images:
+d.Preload all needed images:
 Run your Docker Desktop
 
 Login to Intersystems docker repository
@@ -43,7 +49,7 @@ Login using above command and pull required images:
 
 ```
 docker login -u="wczyz" -p="INSERT-YOUR-TOKEN-HERE"  containers.intersystems.com
-Docker pull containers.intersystems.com/intersystems/iris-community:2023.1.0.207.0
+docker pull containers.intersystems.com/intersystems/iris-community:2023.1.0.207.0
 docker pull containers.intersystems.com/intersystems/webgateway:2023.1.0.207.0
 
 ```
@@ -52,7 +58,7 @@ For Mac M2:
 
 ```
 docker login -u="wczyz" -p="INSERT-YOUR-TOKEN-HERE"  containers.intersystems.com
-Docker pull containers.intersystems.com/intersystems/iris-community:2023.1.0.207.0-linux-arm64v8
+docker pull containers.intersystems.com/intersystems/iris-community:2023.1.0.207.0-linux-arm64v8
 docker pull containers.intersystems.com/intersystems/webgateway:2023.1.0.207.0-linux-arm64v8
 
 ```
