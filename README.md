@@ -43,10 +43,18 @@ Login using above command and pull required images:
 
 ```
 docker login -u="wczyz" -p="INSERT-YOUR-TOKEN-HERE"  containers.intersystems.com
+Docker pull containers.intersystems.com/intersystems/iris-community:2023.1.0.207.0
+docker pull containers.intersystems.com/intersystems/webgateway:2023.1.0.207.0
 
-docker pull containers.intersystems.com/intersystems/iris-community:2022.1.2.574.0
+```
 
-docker pull containers.intersystems.com/intersystems/webgateway:2022.2.0.372.0
+For Mac M2:
+
+```
+docker login -u="wczyz" -p="INSERT-YOUR-TOKEN-HERE"  containers.intersystems.com
+Docker pull containers.intersystems.com/intersystems/iris-community:2023.1.0.207.0-linux-arm64v8
+docker pull containers.intersystems.com/intersystems/webgateway:2023.1.0.207.0-linux-arm64v8
+
 ```
 
 All tools are loaded now, lets start setting up
