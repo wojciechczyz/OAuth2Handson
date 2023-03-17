@@ -76,7 +76,7 @@ ClassMethod SetupOauth2Client() As %Status
     set ret = $$$OK
     try {
         zn "%SYS"
-
+        write "Registering Client application with Authorization server...",!
         set ^%ISCLOG("Category","OAuth2Server")=1
         set ^%ISCLOG("Category","OAuth2")=1
         set ^%ISCLOG=3
@@ -99,7 +99,7 @@ ClassMethod SetupOauth2Client() As %Status
         set Client.Metadata."grant_types" = $lb("authorization_code")        
         $$$ThrowOnError( Client.%Save() )
         $$$ThrowOnError( ##class(%SYS.OAuth2.Registration).RegisterClient("client-app") )
-        
+        write "Finished registering Client application with Authorization server.",!        
     } catch ex {
         set ret = ex.AsStatus() 
         write $system.Status.GetErrorText(ret),! 

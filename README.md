@@ -88,18 +88,19 @@ docker-compose up -d
 
 # 8. Hands on - Registering OAuth2 Client and Resource server
 
-Prepare authorization server - already done!
+a.Prepare authorization server - already done!
 
 ```
 docker exec -it authserver iris terminal IRIS
 ```
 
 Node: authserver, Instance: IRIS
-USER>zn "AUTHSERVER"
+```
+zn "AUTHSERVER"
 AUTHSERVER>do ##class(auth.server.Utils).CreateServerConfig()
-1
+```
 
-Prepare client server
+b.Prepare client server
 
 ```
 docker exec -it client iris terminal IRIS
@@ -110,7 +111,7 @@ zn "client"
 write ##class(client.Installer).SetupOauth2Client()
 ```
 
-Prepare resource server
+c.Prepare resource server
 
 ```
 docker exec -it resourceserver iris terminal IRIS
@@ -141,8 +142,6 @@ Resource server
 ```
 
 * Resource server can be accessed only through the client application (otherwise it will return an error). 
-
-[AuthServer](https://webserver/authserver/csp/sys/UtilHome.csp) has 
 
 
 # 10.Hands on - Test OAuth2 workflow with Web Client Application

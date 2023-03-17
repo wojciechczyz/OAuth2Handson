@@ -1,4 +1,4 @@
-ARG IMAGE=containers.intersystems.com/intersystems/webgateway:2022.2.0.372.0
+ ARG IMAGE=containers.intersystems.com/intersystems/webgateway:2023.1.0.207.0
 #ARG IMAGE=containers.intersystems.com/intersystems/webgateway:2023.1.0.207.0-linux-arm64v8
 FROM $IMAGE
 
