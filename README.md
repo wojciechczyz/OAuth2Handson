@@ -71,7 +71,7 @@ You can find your hosts file in:
 Load code (and this readme file) on your machine:
 ```
 git clone https://github.com/wojciechczyz/OAuth2Handson.git
-cd .\OAuth2Handson\
+cd OAuth2Handson
 ```
 
 Let's create and start servers
@@ -160,22 +160,24 @@ Notice that these users are actually defined in [AuthServer](https://webserver/a
 
 # 12.Hands on troubleshooting
 
+```
 kill ^ISCLOG // clear the global
 set ^%ISCLOG("Category","OAuth2Server")=1
 set ^%ISCLOG("Category","OAuth2")=1
 set ^%ISCLOG=3
+```
 
 ***Perform test***
 
+```
 set ^%ISCLOG=0 //disable logging
 do $system.OBJ.Export("ISCLOG.GBL","c:\temp\isclog.xml")
 do ##class(%OAuth2.Utils).DisplayLog("/tmp/isclog.log")
-
+```
 
 ## Hands on - OAuth2 configuration
  
 
-R A
  Have a look at the code of [client.Application](oauth-client/src/client/Application.cls)
 
 
@@ -185,6 +187,4 @@ R A
 * Resource server can be accessed only through the client application (otherwise it will return an error). 
 * The protected resource URL is: https://webserver/resserver/protected-resources/
 
-You should get something like that:
-<img src="img/oauth-client-webapp.gif" width="800px" />
 

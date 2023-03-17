@@ -1,4 +1,5 @@
 FROM containers.intersystems.com/intersystems/webgateway:2022.2.0.372.0
+#FROM containers.intersystems.com/intersystems/webgateway:2023.1.0.207.0-linux-amd64
 
 # apache: enable ssl
 RUN a2enmod ssl

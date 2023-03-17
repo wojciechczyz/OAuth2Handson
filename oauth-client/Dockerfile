@@ -1,4 +1,5 @@
 ARG IMAGE=containers.intersystems.com/intersystems/iris-community:2022.1.2.574.0
+#ARG IMAGE=containers.intersystems.com/intersystems/iris-community:2023.1.0.207.0-linux-amd64
 FROM $IMAGE
 
 USER root
