@@ -32,6 +32,7 @@ Brew install docker
 
 
 Preload all needed images:
+Run your Docker Desktop
 
 Login to Intersystems docker repository
 https://containers.intersystems.com
