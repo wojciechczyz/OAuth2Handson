@@ -73,7 +73,7 @@ Load code (and this readme file) on your machine:
 git clone https://github.com/wojciechczyz/OAuth2Handson.git
 cd OAuth2Handson
 ```
-Also open the above link in browser 
+Open the above link in browser 
 
 
 Add new configuration line to your hosts file to resolve webserver to 127.0.0.1:
@@ -144,14 +144,14 @@ After running containers, you should get access to:
 | Container  | Mng. Portal URL                                    | Notes                                                |
 | ---------  | -----------                                        | -----------                                          |
 | webserver  | https://webserver/csp/bin/Systems/Module.cxw       | HTTPS access to all IRIS instances                   |
-| authserver | https://webserver/authserver/csp/sys/UtilHome.csp  | IRIS instance that will act as Authorization Server  |
-| resserver  | https://webserver/resserver/csp/sys/UtilHome.csp   | IRIS instance that will act as Resource Server       |
-| client     | https://webserver/client/csp/sys/UtilHome.csp      | IRIS instance that will act as Client                |
+| authserver | https://webserver/authserver/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS  | IRIS instance that will act as Authorization Server  |
+| resserver  | https://webserver/resserver/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS   | IRIS instance that will act as Resource Server       |
+| client     | https://webserver/client/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS      | IRIS instance that will act as Client                |
 
 You can login in InterSystems IRIS instances using `superuser`/`SYS`.
 
 Resource server
-* [ResServer](https://webserver/resserver/csp/sys/UtilHome.csp) is serving protected resource URL:
+* [ResServer](https://webserver/resserver/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS) is serving protected resource URL:
 
 ```
 * https://webserver/resserver/protected-resources/
@@ -170,7 +170,7 @@ https://webserver/client/application/
 Superuser	SYS
 developer	test
 
-Notice that these users are actually defined in [AuthServer](https://webserver/authserver/csp/sys/UtilHome.csp) instance.
+Notice that these users are actually defined in [AuthServer](https://webserver/authserver/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS) instance.
 
 11.Hands on - Test OAuth2 workflow with Web Client Application - result
 
@@ -200,23 +200,32 @@ do ##class(%OAuth2.Utils).DisplayLog("/tmp/isclog.log")
 
 See both ^%ISCLOG and ^ISCLOG via management portal on all instances:
 
-| authserver | https://webserver/authserver/csp/sys/UtilHome.csp  | IRIS instance that will act as Authorization Server  |
-| resserver  | https://webserver/resserver/csp/sys/UtilHome.csp   | IRIS instance that will act as Resource Server       |
-| client     | https://webserver/client/csp/sys/UtilHome.csp      | IRIS instance that will act as Client 
+| authserver | https://webserver/authserver/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS  | IRIS instance that will act as Authorization Server  |
+| resserver  | https://webserver/resserver/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS   | IRIS instance that will act as Resource Server       |
+| client     | https://webserver/client/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS      | IRIS instance that will act as Client 
 
 Search for client_id
 
 # 14.Hands on - Troubleshooting using Gateway traces
 
+| Container  | Mng. Portal URL                                    | Notes                                                |
+| ---------  | -----------                                        | -----------                                          |
+| webserver  | https://webserver/csp/bin/Systems/Module.cxw       | HTTPS access to all IRIS instances                   |
+| authserver | https://webserver/authserver/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS  | IRIS instance that will act as Authorization Server  |
+| resserver  | https://webserver/resserver/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS   | IRIS instance that will act as Resource Server       |
+| client     | https://webserver/client/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS      | IRIS instance that will act as Client                |
+
+Review traces and log of the previous requests
+
 # 15.Hands on - Troubleshooting using Developer tools in browser
 
-Google Chrome
+Open developer tools in Google Chrome
 
-Edge
+Delete session on the client
 
-Firefox
+Repeat the OAuth2 flow noticing requests in Network tab
 
-Safari
+https://webserver/client/application/
 
 # 16. HealthShare 
 
