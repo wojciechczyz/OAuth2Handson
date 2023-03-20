@@ -161,6 +161,9 @@ Resource server
 
 * Resource server can be accessed only through the client application (otherwise it will return an error). 
 
+See Authorization server OAuth2 server configuration.
+See Client and Resource server OAuth2 "client" configuration
+
 
 # 10.Hands on - Test OAuth2 workflow with Web Client Application
 
@@ -187,8 +190,9 @@ See both ^%ISCLOG and ^ISCLOG via management portal on all servers:
 | resserver  | https://webserver/resserver/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS   | IRIS instance that will act as Resource Server       |
 | client     | https://webserver/client/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS      | IRIS instance that will act as Client 
 
-Search for client_id in ^ISCLOG 
-
+Find in authorization server ^ISCLOG 
+GenerateAccessToken
+accessToken=
 
 # 14.Hands on - Troubleshooting using Gateway traces
 
@@ -200,6 +204,7 @@ Search for client_id in ^ISCLOG
 | client     | https://webserver/client/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS      | IRIS instance that will act as Client                |
 
 Review traces and log of the previous requests
+Find client_id and client_secret
 
 # 15.Hands on - Troubleshooting using Developer tools in browser
 
