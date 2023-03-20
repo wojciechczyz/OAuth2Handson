@@ -16,11 +16,6 @@ COPY iris.script iris.script
 COPY src src
 COPY install install
 
-# download zpm package manager
-#RUN mkdir -p /tmp/deps \
-# && cd /tmp/deps \
-# && wget -q https://pm.community.intersystems.com/packages/zpm/latest/installer -O zpm.xml
-
 # run iris.script
 RUN iris start IRIS \
     && iris session IRIS < /opt/irisapp/iris.script \

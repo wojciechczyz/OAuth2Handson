@@ -67,13 +67,12 @@ All tools are loaded now, lets start setting up
 
 # 7. Hands on - Setting setting up OAuth2 servers
 
-Load code (and this readme file) on your machine:
+Load code (and this readme file) on your machine, also open the link in browser:
 
 ```
 git clone https://github.com/wojciechczyz/OAuth2Handson.git
 cd OAuth2Handson
 ```
-Open the above link in browser 
 
 
 Add new configuration line to your hosts file to resolve webserver to 127.0.0.1:
@@ -103,7 +102,10 @@ Build images:
 docker-compose build
 ```
 
-Run containers:
+Look closely at the terminal output before running next command,
+Notice there is some OAuth2 activity is going on. 
+
+when finished, run containers:
 ```
 docker-compose up -d
 ```
@@ -174,37 +176,19 @@ Notice that these users are actually defined in [AuthServer](https://webserver/a
 
 11.Hands on - Test OAuth2 workflow with Web Client Application - result
 
-# 12.what are we troubleshooting
-
-
+12.What are we troubleshooting
 
 # 13.Hands on troubleshooting using ISCSOAP
 
-```
-kill ^ISCLOG // clear the global
-set ^%ISCLOG("Category","OAuth2Server")=1
-set ^%ISCLOG("Category","OAuth2")=1
-set ^%ISCLOG=3
-```
 
-***Perform test***
-
-```
-set ^%ISCLOG=0 //disable logging
-
-do $system.OBJ.Export("ISCLOG.GBL","c:\temp\isclog.xml")
-
-zn "%SYS"
-do ##class(%OAuth2.Utils).DisplayLog("/tmp/isclog.log")
-```
-
-See both ^%ISCLOG and ^ISCLOG via management portal on all instances:
+See both ^%ISCLOG and ^ISCLOG via management portal on all servers:
 
 | authserver | https://webserver/authserver/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS  | IRIS instance that will act as Authorization Server  |
 | resserver  | https://webserver/resserver/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS   | IRIS instance that will act as Resource Server       |
 | client     | https://webserver/client/csp/sys/UtilHome.csp?IRISUsername=superuser&IRISPassword=SYS      | IRIS instance that will act as Client 
 
-Search for client_id
+Search for client_id in ^ISCLOG 
+
 
 # 14.Hands on - Troubleshooting using Gateway traces
 
@@ -230,7 +214,6 @@ https://webserver/client/application/
 # 16. HealthShare 
 
 
-Deployed mode
 %ZHS.ZAUTHENTICATE.cls
 %ZHS.ZAUTHENTICATE.inc
 
@@ -243,7 +226,25 @@ Debugging enabled
 In BEARER token flow
 ValidateJWT return
 
-# 16.Hands on - Review server build using Visual Studio Code
+# 17. Hands on – Inspect repository with Visual Studio Code
+
+Open workspace in Visual Studio Code
+Execute in terminal
+
+```
+code iris-oauth.code-workspace
+```
+
+Work in Explorer view
+Open main folder
+See docker-compose.yml file
+Go up and open open-oauth-server folder
+Review Dockerfile, see how iris.script is launched
+Review iris.script, see how OAuth2 configuration is applied
+Go up and to main/oauth-client folder
+Go to src/Client/Installer , review RegisterOauth2Client()
+
+# 18.Hands on - Review server build using Visual Studio Code
 
 
 
