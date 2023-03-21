@@ -15,12 +15,7 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 }
 
 ClassMethod ResServer() As %Status
-{
-    // This is a dummy resource server which just gets the access token from the request
-    // and uses the introspection endpoint to ensure that the access token is valid.
-    // Normally the response would not be security related, but would contain some interesting
-    // data based on the request parameters.
-    
+{    
     // retrieve access token from HTTP request
     set accessToken = ##class(%SYS.OAuth2.AccessToken).GetAccessTokenFromRequest(.status)
     if $$$ISERR(status) {
@@ -53,11 +48,8 @@ ClassMethod ResServer() As %Status
         write "Introspection Error="_..EscapeHTML($system.Status.GetErrorText(sc)),!
         quit $$$OK
     }
-    
-    write "OAuth 2.0 access token used to authorize resource server (RFC 6749)<br>"
-    write "Access token validated using introspection endpoint (RFC 7662)<br>"
-    write "   scope='"_jsonObject.scope_"'<br>"
-    write "   user='"_jsonObject.username_"'",!
+
+    write !,"This is protected content that you just accessed.",!
     
     quit $$$OK
 }
