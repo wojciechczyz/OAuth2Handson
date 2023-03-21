@@ -128,7 +128,11 @@ b.Registering client server
 
 ```
 docker exec -it client iris terminal IRIS
+```
+```
 zn "client"
+```
+```
 write ##class(client.Installer).RegisterOauth2Client()
 ```
 
@@ -136,7 +140,11 @@ c.Registering resource server
 
 ```
 docker exec -it resourceserver iris terminal IRIS
+```
+```
 zn "resserver"
+```
+```
 write ##class(res.Installer).RegisterOauth2ResourceServer()
 ```
 
