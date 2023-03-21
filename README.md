@@ -123,6 +123,7 @@ zn "AUTHSERVER"
 AUTHSERVER>do ##class(auth.server.Utils).CreateServerConfig()
 
 
+
 b.Registering client server
 
 ```
